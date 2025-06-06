@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FB Message Bot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>💬 FB Auto Messenger</h1>
+
+    <label>Token / Cookie:</label>
+    <textarea id="token" placeholder="Paste FB token or cookie..."></textarea>
+
+    <label>UID (Group/Profile):</label>
+    <input type="text" id="uid" placeholder="Enter target UID..." />
+
+    <label>Message:</label>
+    <textarea id="message" placeholder="Type your message OR upload below..."></textarea>
+    <input type="file" id="messageFile" />
+
+    <label>Delay (in seconds):</label>
+    <input type="number" id="delay" value="5" />
+
+    <button onclick="sendMessage()">🚀 Run</button>
+
+    <label>Enter Stop Code:</label>
+    <input type="text" id="stopCode" placeholder="Enter stop code..." />
+    <button onclick="stopBot()">🛑 Stop</button>
+
+    <pre id="logBox"></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,19 +1,39 @@
-FROM node:18
+FROM node:18-slim
 
-# Create app directory
+# Install dependencies required by Chromium
+RUN apt-get update && apt-get install -y \
+    wget \
+    ca-certificates \
+    fonts-liberation \
+    libappindicator3-1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libgdk-pixbuf2.0-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    xdg-utils \
+    --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
 
-# Copy frontend & backend
-COPY backend ./backend
-COPY frontend ./frontend
+# Copy package files
+COPY package*.json ./
 
-# Install backend dependencies
-WORKDIR /app/backend
+# Install node dependencies
 RUN npm install
 
-# Serve frontend statically
-WORKDIR /app
-RUN mkdir public && cp -r frontend/* public/
+# Copy rest of the app
+COPY . .
 
-# Final start command
-CMD ["node", "backend/index.js"]
+# Start the app
+CMD ["node", "index.js"]
